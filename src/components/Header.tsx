@@ -152,7 +152,7 @@ const Header = () => {
               <Link href="/on-sale" className="hover:text-gray-600">
                 On Sale
               </Link>
-              <Link href="/new-arrivals" className="hover:text-gray-600">
+              <Link href="/NewArrival" className="hover:text-gray-600">
                 New Arrivals
               </Link>
               <Link href="/brands" className="hover:text-gray-600">
