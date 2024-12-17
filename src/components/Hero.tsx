@@ -34,12 +34,12 @@ import Image from "next/image";
         </div>
   
         {/* Brand Logos */}
-        <div className="bg-black w-full mt-2">
-          <div className="flex justify-evenly items-center h-14">
+        <div id="brands" className="bg-black w-full mt-2">
+          <div  className="flex justify-evenly items-center h-14">
             {["Versace", "Zara", "Gucci", "Prada", "Calvin Klein"].map((brand) => (
               <span
-                key={brand}
-                className="text-white text-sm sm:text-base lg:text-lg font-semibold"
+              key={brand}
+                 className="text-white text-sm sm:text-base lg:text-lg font-semibold"
               >
                 {brand}
               </span>

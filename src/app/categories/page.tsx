@@ -57,7 +57,7 @@ const CategoryPage: React.FC = () => {
           <h2 className="text-lg font-semibold mb-4">Filters</h2>
 
           {/* Categories */}
-          <div className="mb-4">
+          <div id="category" className="mb-4">
             {["T-shirts", "Shorts", "Shirts", "Hoodies", "Jeans"].map((category) => (
               <div key={category} className="flex justify-between py-2 cursor-pointer hover:text-black">
                 <span>{category}</span>

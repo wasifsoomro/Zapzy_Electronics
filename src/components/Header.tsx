@@ -68,16 +68,16 @@ const Header = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6 ">
-          <Link href="/shop" className="hover:text-gray-600">
+          <Link href="#categories" className="hover:text-gray-600">
             Shop
           </Link>
-          <Link href="/on-sale" className="hover:text-gray-600">
+          <Link href="#on-sale" className="hover:text-gray-600">
             On Sale
           </Link>
-          <Link href="/new-arrivals" className="hover:text-gray-600">
+          <Link href="#new-arrivals" className="hover:text-gray-600">
             New Arrivals
           </Link>
-          <Link href="/brands" className="hover:text-gray-600">
+          <Link href="#brands" className="hover:text-gray-600">
             Brands
           </Link>
         </div>
@@ -146,16 +146,16 @@ const Header = () => {
         {isMenuOpen && (
           <div className="absolute top-full z-10 left-0 w-full bg-black text-white shadow-lg md:hidden">
             <div className="flex flex-col items-center space-y-4 py-4">
-              <Link href="/shop" className="hover:text-gray-600">
+              <Link href="/categories" className="hover:text-gray-600">
                 Shop
               </Link>
-              <Link href="/on-sale" className="hover:text-gray-600">
+              <Link href="#on-sale" className="hover:text-gray-600">
                 On Sale
               </Link>
-              <Link href="/NewArrival" className="hover:text-gray-600">
+              <Link href="#new-arrivals" className="hover:text-gray-600">
                 New Arrivals
               </Link>
-              <Link href="/brands" className="hover:text-gray-600">
+              <Link href="#brands" className="hover:text-gray-600">
                 Brands
               </Link>
             </div>
