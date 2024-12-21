@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
  const Hero = () => {
     return (
       <div className="bg-[#F2F0F1] min-h-screen flex flex-col">
@@ -13,9 +14,10 @@ import Image from "next/image";
               Browse through our diverse range of meticulously crafted garments,
               designed to bring out your individuality and cater to your sense of style.
             </p>
+            <Link href="/productpage">
             <button className="bg-black text-white px-6 py-3 rounded-lg hover:scale-105 transition-transform">
               Shop Now
-            </button>
+            </button></Link>
           </div>
   
           {/* Right Content */}

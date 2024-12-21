@@ -6,7 +6,7 @@ const DressStyleSection = () => {
   const styleCategories = [
     {
       title: 'Casual',
-      image: '/casual-shirt1.png',
+      image: '/casual-style.png',
       alt: 'Man wearing casual white t-shirt',
     },
     {

@@ -68,7 +68,7 @@ const Header = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6 ">
-          <Link href="#categories" className="hover:text-gray-600">
+          <Link href="/categories" className="hover:text-gray-600">
             Shop
           </Link>
           <Link href="#on-sale" className="hover:text-gray-600">

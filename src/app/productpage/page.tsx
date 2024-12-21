@@ -1,16 +1,18 @@
-import React from 'react'
-import ProductPage from './productdetail'
-import Reviews from './review'
-import { OtherProducts } from './likes'
+// src/app/productpage/page.tsx
+
+import React from 'react';
+import ProductDetail from './productdetail';
+import Reviews from './review';
+import { OtherProducts } from './likes';
 
 const page = () => {
   return (
     <div>
-      <ProductPage />
+      <ProductDetail id="1" /> {/* Example static ID */}
       <Reviews />
       <OtherProducts />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

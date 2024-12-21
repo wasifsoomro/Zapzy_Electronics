@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { GoChevronRight } from "react-icons/go";
 import PagesBar from "./Pagebar";
+import Link from "next/link";
 
 const CategoryPage: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string>("green");
@@ -23,6 +24,7 @@ const CategoryPage: React.FC = () => {
 
   interface Product {
     id: number;
+    imageslist: string[];
     name: string;
     image: string;
     rating: number;
@@ -31,15 +33,16 @@ const CategoryPage: React.FC = () => {
   }
 
   const products: Product[] = [
-    { id: 1, name: "Gradient Graphic T-shirt", image: "/gradient-tshirt.png", rating: 3.5, price: 145 },
-    { id: 2, name: "Polo with Tipping Details", image: "/polo-tapping.png", rating: 4.5, price: 180 },
-    { id: 3, name: "Black Striped T-shirt", image: "/black-stripped.png", rating: 5.0, price: 120, originalPrice: 150 },
-    { id: 4, name: "SKINNY FIT JEANS", image: "/skinny-jeans.png", rating: 3.5, price: 240, originalPrice: 260 },
-    { id: 5, name: "CHECKERED SHIRT", image: "/checkered-shirt.png", rating: 4.5, price: 180 },
-    { id: 6, name: "SLEEVE STRIPED T-SHIRT", image: "/striped-tshirt.png", rating: 4.5, price: 130, originalPrice: 160 },
-    { id: 7, name: "VERTICAL STRIPED SHIRT", image: "/vertical-shirt.png", rating: 5.0, price: 212, originalPrice: 232 },
-    { id: 8, name: "COURAGE GRAPHIC T-SHIRT", image: "/courage-shirt.png", rating: 4.0, price: 145 },
-    { id: 9, name: "LOOSE FIT BERMUDA SHORTS", image: "/short.png", rating: 3.0, price: 80 },
+    { id: 1, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "Gradient Graphic T-shirt", image: "/gradient-tshirt.png", rating: 3.5, price: 145 },
+    { id: 2, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "Polo with Tipping Details", image: "/polo-tapping.png", rating: 4.5, price: 180 },
+    { id: 3, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "Black Striped T-shirt", image: "/black-stripped.png", rating: 5.0, price: 120, originalPrice: 150 },
+    { id: 4, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "SKINNY FIT JEANS", image: "/skinny-jeans.png", rating: 3.5, price: 240, originalPrice: 260 },
+    { id: 5, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "CHECKERED SHIRT", image: "/checkered-shirt.png", rating: 4.5, price: 180 },
+    { id: 6, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "SLEEVE STRIPED T-SHIRT", image: "/striped-tshirt.png", rating: 4.5, price: 130, originalPrice: 160 },
+    { id: 7, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "VERTICAL STRIPED SHIRT", image: "/vertical-shirt.png", rating: 5.0, price: 212, originalPrice: 232 },
+    { id: 8, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "COURAGE GRAPHIC T-SHIRT", image: "/courage-shirt.png", rating: 4.0, price: 145 },
+    { id: 9, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "ONE LIFE GRAPHIC T-SHIRT", image: "/p-main.png", rating: 4.5, price: 260 },
+    { id: 10, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "LOOSE FIT BERMUDA SHORTS", image: "/short.png", rating: 3.0, price: 80 },
   ];
 
   return (
@@ -131,29 +134,31 @@ const CategoryPage: React.FC = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
           {products.map((product) => (
-            <div key={product.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={192}
-                height={192}
-                className="w-full h-54 object-cover rounded"
-              />
-              <h2 className="mt-4 text-lg font-semibold">{product.name}</h2>
-              <div className="flex items-center mt-2">
-                <span className="text-yellow-500">
-                  {"★".repeat(Math.floor(product.rating))}
-                  {"☆".repeat(5 - Math.floor(product.rating))}
-                </span>
-                <span className="ml-2 text-sm text-gray-500">{product.rating}/5</span>
+            <Link key={product.id} href="/productpage">
+              <div className="border rounded-lg p-4 shadow hover:shadow-lg transition">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={192}
+                  height={192}
+                  className="w-full h-54 object-cover rounded"
+                />
+                <h2 className="mt-4 text-lg font-semibold">{product.name}</h2>
+                <div className="flex items-center mt-2">
+                  <span className="text-yellow-500">
+                    {"★".repeat(Math.floor(product.rating))}
+                    {"☆".repeat(5 - Math.floor(product.rating))}
+                  </span>
+                  <span className="ml-2 text-sm text-gray-500">{product.rating}/5</span>
+                </div>
+                <div className="mt-4">
+                  <span className="text-lg font-bold">${product.price}</span>
+                  {product.originalPrice && (
+                    <span className="ml-2 text-sm line-through text-gray-500">${product.originalPrice}</span>
+                  )}
+                </div>
               </div>
-              <div className="mt-4">
-                <span className="text-lg font-bold">${product.price}</span>
-                {product.originalPrice && (
-                  <span className="ml-2 text-sm line-through text-gray-500">${product.originalPrice}</span>
-                )}
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
 
