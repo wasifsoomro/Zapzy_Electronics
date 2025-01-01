@@ -30,7 +30,7 @@ export default function PaymentsFAQPage() {
             <div className="faq-item">
               <h3 className="text-2xl font-semibold">How long does it take for my payment to be processed?</h3>
               <p className="text-lg text-gray-800">
-                Payments are typically processed within a few minutes. If you chose to pay by bank transfer, it may take up to 1-2 business days for the payment to be confirmed.
+                Payments are typically processed within a few minutes. If you chose to pay by bank transfer, it may take up to 1&ndash;2 business days for the payment to be confirmed.
               </p>
             </div>
 
@@ -46,7 +46,7 @@ export default function PaymentsFAQPage() {
             <div className="faq-item">
               <h3 className="text-2xl font-semibold">How do I update my payment information?</h3>
               <p className="text-lg text-gray-800">
-                You can update your payment details by logging into your account, going to the "Payment Methods" section, and adding or updating your preferred payment method.
+                You can update your payment details by logging into your account, going to the &ldquo;Payment Methods&rdquo; section, and adding or updating your preferred payment method.
               </p>
             </div>
 
@@ -62,7 +62,7 @@ export default function PaymentsFAQPage() {
             <div className="faq-item">
               <h3 className="text-2xl font-semibold">How do I request a refund?</h3>
               <p className="text-lg text-gray-800">
-                To request a refund, please go to the "Order History" section in your account and select the "Request Refund" option for the eligible order. Refunds will be processed according to our return policy.
+                To request a refund, please go to the &ldquo;Order History&rdquo; section in your account and select the &ldquo;Request Refund&rdquo; option for the eligible order. Refunds will be processed according to our return policy.
               </p>
             </div>
           </div>

@@ -9,14 +9,18 @@ const ProductDetail = () => {
   const { productDetails } = useParams(); // Fetch the productDetails from the URL
   const product = products.find((item) => item.id === Number(productDetails));
 
+  // State to track the selected color, size, and quantity
+  const [selectedColor, setSelectedColor] = useState(
+    product ? product.colors[0] : null
+  ); // Default to first color
+  const [selectedSize, setSelectedSize] = useState(
+    product ? product.sizes[0] : null
+  ); // Default to first size
+  const [quantity, setQuantity] = useState(1);
+
   if (!product) {
     return <div>Product not found</div>;
   }
-
-  // State to track the selected color, size, and quantity
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]); // Default to first color
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0]); // Default to first size
-  const [quantity, setQuantity] = useState(1);
 
   const handleColorChange = (color: any) => setSelectedColor(color);
   const handleSizeChange = (size: any) => setSelectedSize(size);
@@ -55,9 +59,13 @@ const ProductDetail = () => {
     <div className="container mx-auto px-4 py-8 lg:px-12">
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center text-sm text-gray-500 mb-6">
-        <a href="/" className="hover:text-gray-700">Home</a>
+        <a href="/" className="hover:text-gray-700">
+          Home
+        </a>
         <span className="mx-2">›</span>
-        <a href="/shop" className="hover:text-gray-700">Shop</a>
+        <a href="/shop" className="hover:text-gray-700">
+          Shop
+        </a>
         <span className="mx-2">›</span>
         <span className="text-gray-800 font-medium">{product.name}</span>
       </nav>
@@ -105,11 +113,18 @@ const ProductDetail = () => {
           <div className="flex items-center gap-4 mb-4">
             <span className="text-2xl font-bold">${product.price}</span>
             {product.originalPrice && (
-              <span className="line-through text-gray-400">${product.originalPrice}</span>
+              <span className="line-through text-gray-400">
+                ${product.originalPrice}
+              </span>
             )}
             {product.originalPrice && (
               <span className="text-red-500 text-sm font-medium">
-                -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                -{Math.round(
+                  ((product.originalPrice - product.price) /
+                    product.originalPrice) *
+                    100
+                )}
+                %
               </span>
             )}
           </div>
@@ -117,16 +132,24 @@ const ProductDetail = () => {
           {/* Ratings */}
           <div className="flex items-center mb-4">
             <div className="text-yellow-400 flex gap-1">
-              {[...Array(Math.floor(product.rating))].map((_, i) => <span key={i}>★</span>)}
+              {[...Array(Math.floor(product.rating))].map((_, i) => (
+                <span key={i}>★</span>
+              ))}
               {product.rating % 1 !== 0 && <span>★</span>}
-              {[...Array(5 - Math.ceil(product.rating))].map((_, i) => <span key={i} className="text-gray-300">★</span>)}
+              {[...Array(5 - Math.ceil(product.rating))].map((_, i) => (
+                <span key={i} className="text-gray-300">
+                  ★
+                </span>
+              ))}
             </div>
             <span className="text-gray-600 ml-2">{product.rating}/5</span>
           </div>
 
           {/* Product Description */}
           <p className="text-gray-600 leading-relaxed mb-6">
-            Experience premium comfort and style with our {product.name}. Crafted with high-quality materials, this t-shirt ensures both durability and elegance for casual wear.
+            Experience premium comfort and style with our {product.name}.
+            Crafted with high-quality materials, this t-shirt ensures both
+            durability and elegance for casual wear.
           </p>
 
           {/* Color Options */}
@@ -136,7 +159,9 @@ const ProductDetail = () => {
               {product.colors.map((color, index) => (
                 <div
                   key={index}
-                  className={`w-8 h-8 rounded-full cursor-pointer ring-2 ring-offset-2 ${color === selectedColor ? 'ring-black' : ''}`}
+                  className={`w-8 h-8 rounded-full cursor-pointer ring-2 ring-offset-2 ${
+                    color === selectedColor ? "ring-black" : ""
+                  }`}
                   style={{ backgroundColor: color }}
                   onClick={() => handleColorChange(color)}
                 />
@@ -151,7 +176,9 @@ const ProductDetail = () => {
               {product.sizes.map((size, index) => (
                 <button
                   key={index}
-                  className={`border rounded-md px-4 py-2 text-sm ${size === selectedSize ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
+                  className={`border rounded-md px-4 py-2 text-sm ${
+                    size === selectedSize ? "bg-gray-200" : "hover:bg-gray-200"
+                  }`}
                   onClick={() => handleSizeChange(size)}
                 >
                   {size}
@@ -186,7 +213,7 @@ const ProductDetail = () => {
               onClick={handleAddToCart}
               className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition w-full sm:w-auto"
             >
-             <Link href={`/productpage/${product.id}/cart`}>Add to Cart</Link>
+              <Link href={`/productpage/${product.id}/cart`}>Add to Cart</Link>
             </button>
           </div>
         </div>

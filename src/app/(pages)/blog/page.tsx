@@ -8,7 +8,7 @@ export default function HowToBlogPage() {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4 tracking-tight">How to Blog</h1>
           <p className="text-xl font-light tracking-wide">
-            Learn the essential steps to create a successful blog. Whether you're just starting or looking to improve, this guide will help you get there.
+            Learn the essential steps to create a successful blog. Whether you&apos;re just starting or looking to improve, this guide will help you get there.
           </p>
         </div>
       </header>
@@ -32,7 +32,7 @@ export default function HowToBlogPage() {
           <div className="space-y-6 mb-12">
             <h3 className="text-2xl font-semibold text-black">Step 1: Choose Your Blog Niche</h3>
             <p className="text-gray-600">
-              The first step in starting a blog is choosing a niche. Focus on a topic you're passionate about and knowledgeable in. Whether it's technology, travel, food, or personal finance, ensure your niche has an audience.
+              The first step in starting a blog is choosing a niche. Focus on a topic you&apos;re passionate about and knowledgeable in. Whether it&apos;s technology, travel, food, or personal finance, ensure your niche has an audience.
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export default function HowToBlogPage() {
           {/* Tips List */}
           <ul className="list-disc list-inside space-y-4 text-gray-600">
             <li><strong>Be Consistent:</strong> Publish content regularly to keep your audience engaged and improve your SEO ranking.</li>
-            <li><strong>Focus on Quality:</strong> Don't just post for the sake of posting. Ensure your content is well-researched, valuable, and well-written.</li>
+            <li><strong>Focus on Quality:</strong> Don&apos;t just post for the sake of posting. Ensure your content is well-researched, valuable, and well-written.</li>
             <li><strong>Engage with Your Audience:</strong> Respond to comments and messages from your readers. Building a community around your blog will lead to loyal followers.</li>
             <li><strong>Optimize for SEO:</strong> Use the right keywords, meta tags, and internal links to increase your chances of appearing in search engine results.</li>
             <li><strong>Monetize Your Blog:</strong> Explore different monetization methods such as affiliate marketing, sponsored posts, and selling your own products or services.</li>

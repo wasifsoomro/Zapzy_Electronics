@@ -19,7 +19,7 @@ export default function ManageDeliveriesFAQPage() {
             <div className="mb-12">
               <h3 className="text-xl font-semibold text-black mb-4">1. How can I track my delivery?</h3>
               <p className="text-gray-800 text-lg leading-relaxed font-light mb-4">
-                To track your delivery, log into your account and navigate to the 'Orders' or 'Manage Deliveries' section. You'll see a list of all your deliveries and their statuses. Click on the 'Track Delivery' button next to each order to get real-time updates on its location and expected delivery time.
+                To track your delivery, log into your account and navigate to the &lsquo;Orders&rsquo; or &lsquo;Manage Deliveries&rsquo; section. You&rsquo;ll see a list of all your deliveries and their statuses. Click on the &lsquo;Track Delivery&rsquo; button next to each order to get real-time updates on its location and expected delivery time.
               </p>
             </div>
   
@@ -27,7 +27,7 @@ export default function ManageDeliveriesFAQPage() {
             <div className="mb-12">
               <h3 className="text-xl font-semibold text-black mb-4">2. Can I change the delivery address after placing the order?</h3>
               <p className="text-gray-800 text-lg leading-relaxed font-light mb-4">
-                Once an order has been placed and is processing, you may not be able to change the shipping address immediately. However, if the order is still in the "Processing" stage, you can contact our customer support team to request an address change. Please ensure the change is made before the item is shipped out to avoid delays.
+                Once an order has been placed and is processing, you may not be able to change the shipping address immediately. However, if the order is still in the &ldquo;Processing&rdquo; stage, you can contact our customer support team to request an address change. Please ensure the change is made before the item is shipped out to avoid delays.
               </p>
             </div>
   
@@ -43,7 +43,7 @@ export default function ManageDeliveriesFAQPage() {
             <div className="mb-12">
               <h3 className="text-xl font-semibold text-black mb-4">4. How can I change my preferred delivery time?</h3>
               <p className="text-gray-800 text-lg leading-relaxed font-light mb-4">
-                To update your preferred delivery time, go to your account settings and navigate to the 'Delivery Preferences' section. You can select a preferred delivery time (morning, afternoon, or evening) to suit your schedule. Make sure to save any changes before placing a new order.
+                To update your preferred delivery time, go to your account settings and navigate to the &lsquo;Delivery Preferences&rsquo; section. You can select a preferred delivery time (morning, afternoon, or evening) to suit your schedule. Make sure to save any changes before placing a new order.
               </p>
             </div>
   
@@ -59,7 +59,7 @@ export default function ManageDeliveriesFAQPage() {
             <div className="mb-12">
               <h3 className="text-xl font-semibold text-black mb-4">6. What if I missed my delivery?</h3>
               <p className="text-gray-800 text-lg leading-relaxed font-light mb-4">
-                If you missed your scheduled delivery, don't worry! The carrier will usually make another attempt or leave a note with instructions on how to reschedule. You can also contact customer support to arrange a new delivery time or pick-up option.
+                If you missed your scheduled delivery, don&rsquo;t worry! The carrier will usually make another attempt or leave a note with instructions on how to reschedule. You can also contact customer support to arrange a new delivery time or pick-up option.
               </p>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default function ManageDeliveriesFAQPage() {
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-black mb-8 tracking-tight">Still Have Questions?</h2>
             <p className="text-lg text-gray-800 mb-8">
-              If you need further assistance or have additional questions, feel free to contact our customer support team. We're here to help!
+              If you need further assistance or have additional questions, feel free to contact our customer support team. We&rsquo;re here to help!
             </p>
             <button
               className="px-8 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
@@ -82,5 +82,4 @@ export default function ManageDeliveriesFAQPage() {
         </section>
       </div>
     );
-  }
-  
+}

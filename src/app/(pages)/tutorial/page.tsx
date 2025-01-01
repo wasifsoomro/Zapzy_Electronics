@@ -16,7 +16,7 @@ export default function DevelopmentTutorialsPage() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-black mb-8 tracking-tight">Get Started with Development Tutorials</h2>
           <p className="text-gray-800 text-lg leading-relaxed font-light mb-8">
-            Whether you're a beginner or an experienced developer, we have tutorials for every skill level. Learn programming languages, frameworks, and tools to help you grow as a developer.
+            Whether you&apos;re a beginner or an experienced developer, we have tutorials for every skill level. Learn programming languages, frameworks, and tools to help you grow as a developer.
           </p>
         </div>
       </section>
@@ -64,7 +64,7 @@ export default function DevelopmentTutorialsPage() {
           <div className="space-y-6">
             <div className="flex justify-between items-center bg-white p-6 rounded-lg shadow-md">
               <div>
-                <h3 className="text-xl font-semibold text-black">HTML & CSS Fundamentals</h3>
+                <h3 className="text-xl font-semibold text-black">HTML &amp; CSS Fundamentals</h3>
                 <p className="text-gray-600">A beginner-friendly course to help you master the building blocks of the web: HTML and CSS.</p>
               </div>
               <a href="#" className="text-blue-500 hover:underline">Start Learning</a>
