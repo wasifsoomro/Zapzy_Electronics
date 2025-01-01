@@ -1,4 +1,3 @@
-// components/DressStyleSection.jsx
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -32,14 +31,14 @@ const DressStyleSection = () => {
         BROWSE BY DRESS STYLE
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {styleCategories.map((category, index) => (
           <Link
-            href={`/category/${category.title.toLowerCase()}`}
+            href={`/productpage/${category.title.toLowerCase()}`}
             key={index}
             className="relative overflow-hidden rounded-md bg-white shadow hover:shadow-lg transition-shadow"
           >
-            <div className="relative h-56 sm:h-72 lg:h-80">
+            <div className="relative h-56 sm:h-72 lg:h-80 xl:h-96">
               <Image
                 src={category.image}
                 alt={category.alt}

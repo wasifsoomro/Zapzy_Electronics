@@ -7,7 +7,7 @@ import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Hero />
       <NewArrivals />
       <TopSelling />

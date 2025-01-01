@@ -1,37 +1,55 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import products from "../../products.json";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 
-interface Product {
-  id: number;
-  imageslist: string[];
-  name: string;
-  image: string;
-  rating: number;
-  price: number;
-  originalPrice?: number;
-}
-
-const products: Product[] = [
-  { id: 1, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "Gradient Graphic T-shirt", image: "/gradient-tshirt.png", rating: 3.5, price: 145 },
-  { id: 2, imageslist: ["/p-1.png", "/p-2.png", "/polo-tapping.png"], name: "Polo with Tipping Details", image: "/polo-tapping.png", rating: 4.5, price: 180 },
-  { id: 3, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "Black Striped T-shirt", image: "/black-stripped.png", rating: 5.0, price: 120, originalPrice: 150 },
-  { id: 4, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "SKINNY FIT JEANS", image: "/skinny-jeans.png", rating: 3.5, price: 240, originalPrice: 260 },
-  { id: 5, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "CHECKERED SHIRT", image: "/checkered-shirt.png", rating: 4.5, price: 180 },
-  { id: 6, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "SLEEVE STRIPED T-SHIRT", image: "/striped-tshirt.png", rating: 4.5, price: 130, originalPrice: 160 },
-  { id: 7, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "VERTICAL STRIPED SHIRT", image: "/vertical-shirt.png", rating: 5.0, price: 212, originalPrice: 232 },
-  { id: 8, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "COURAGE GRAPHIC T-SHIRT", image: "/courage-shirt.png", rating: 4.0, price: 145 },
-  { id: 9, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "ONE LIFE GRAPHIC T-SHIRT", image: "/p-main.png", rating: 4.5, price: 260 },
-  { id: 10, imageslist: ["/p-1.png", "/p-2.png", "/p-3.png"], name: "LOOSE FIT BERMUDA SHORTS", image: "/short.png", rating: 3.0, price: 80 },
-];
-
-const ProductDetail = ({ id }: { id: string }) => {
-  const product = products.find((p) => p.id === parseInt(id));
+const ProductDetail = () => {
+  const { productDetails } = useParams(); // Fetch the productDetails from the URL
+  const product = products.find((item) => item.id === Number(productDetails));
 
   if (!product) {
-    return <p>Product not found</p>;
+    return <div>Product not found</div>;
   }
+
+  // State to track the selected color, size, and quantity
+  const [selectedColor, setSelectedColor] = useState(product.colors[0]); // Default to first color
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0]); // Default to first size
+  const [quantity, setQuantity] = useState(1);
+
+  const handleColorChange = (color: any) => setSelectedColor(color);
+  const handleSizeChange = (size: any) => setSelectedSize(size);
+  const handleQuantityChange = (operation: any) => {
+    setQuantity((prevQuantity) => {
+      if (operation === "increment" && quantity < 10) {
+        return prevQuantity + 1;
+      }
+      if (operation === "decrement" && quantity > 1) {
+        return prevQuantity - 1;
+      }
+      return prevQuantity;
+    });
+  };
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      color: selectedColor,
+      size: selectedSize,
+      quantity,
+    };
+
+    // Get the current cart from localStorage (if exists)
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    // Add the new product to the cart (or update quantity if product already exists)
+    const updatedCart = [...existingCart, cartItem];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 lg:px-12">
@@ -115,12 +133,14 @@ const ProductDetail = ({ id }: { id: string }) => {
           <div className="mb-6">
             <h3 className="font-medium mb-2">Select Colors</h3>
             <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-green-700 cursor-pointer ring-2 ring-offset-2 ring-green-700"></div>
-              <div className="w-8 h-8 rounded-full bg-teal-500 cursor-pointer"></div>
-              <div className="w-8 h-8 rounded-full bg-blue-700 cursor-pointer"></div>
-              <div className="w-8 h-8 rounded-full bg-black cursor-pointer text-white flex items-center justify-center text-xs">
-                S
-              </div>
+              {product.colors.map((color, index) => (
+                <div
+                  key={index}
+                  className={`w-8 h-8 rounded-full cursor-pointer ring-2 ring-offset-2 ${color === selectedColor ? 'ring-black' : ''}`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => handleColorChange(color)}
+                />
+              ))}
             </div>
           </div>
 
@@ -128,10 +148,11 @@ const ProductDetail = ({ id }: { id: string }) => {
           <div className="mb-6">
             <h3 className="font-medium mb-2">Choose Size</h3>
             <div className="flex gap-3">
-              {["Small", "Medium", "Large", "X-Large"].map((size, index) => (
+              {product.sizes.map((size, index) => (
                 <button
                   key={index}
-                  className="border rounded-md px-4 py-2 text-sm hover:bg-gray-200"
+                  className={`border rounded-md px-4 py-2 text-sm ${size === selectedSize ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
+                  onClick={() => handleSizeChange(size)}
                 >
                   {size}
                 </button>
@@ -142,16 +163,30 @@ const ProductDetail = ({ id }: { id: string }) => {
           {/* Quantity and Add to Cart */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
             <div className="flex items-center border rounded-md">
-              <button className="px-3 py-2">-</button>
+              <button
+                className="px-3 py-2"
+                onClick={() => handleQuantityChange("decrement")}
+              >
+                -
+              </button>
               <input
                 type="number"
-                defaultValue="1"
+                value={quantity}
+                readOnly
                 className="w-12 text-center outline-none"
               />
-              <button className="px-3 py-2">+</button>
+              <button
+                className="px-3 py-2"
+                onClick={() => handleQuantityChange("increment")}
+              >
+                +
+              </button>
             </div>
-            <button className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition w-full sm:w-auto">
-              Add to Cart
+            <button
+              onClick={handleAddToCart}
+              className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition w-full sm:w-auto"
+            >
+             <Link href={`/productpage/${product.id}/cart`}>Add to Cart</Link>
             </button>
           </div>
         </div>
