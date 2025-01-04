@@ -77,6 +77,7 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="checkout container mx-auto p-6 max-w-lg bg-white shadow-md rounded-md">
+      <div></div>
       <h1 className="text-2xl font-semibold mb-6">Checkout</h1>
 
       {/* Order Summary */}

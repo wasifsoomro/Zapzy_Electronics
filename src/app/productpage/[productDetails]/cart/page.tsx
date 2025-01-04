@@ -36,7 +36,9 @@ const CartPage: React.FC = () => {
     <div className="container mx-auto p-4 md:p-6 lg:px-20">
       {/* Breadcrumb */}
       <div className="text-sm text-gray-500 mb-4">
-        <Link href="/">Home</Link> &gt; <span className="text-black font-semibold">Cart</span>
+        <Link href="/">Home</Link> &gt; <Link href={`/productpage/${product.id}`} className="hover:text-gray-700">
+          Shop
+        </Link> &gt;<span className="text-black font-semibold">Cart</span>
       </div>
 
       {/* Header */}

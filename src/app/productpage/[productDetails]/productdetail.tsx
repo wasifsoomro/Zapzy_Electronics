@@ -213,7 +213,7 @@ const ProductDetail = () => {
               onClick={handleAddToCart}
               className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition w-full sm:w-auto"
             >
-              <Link href={`/productpage/${product.id}/cart`}>Add to Cart</Link>
+              <Link href={`/productpage/5/cart`}>Add to Cart</Link>
             </button>
           </div>
         </div>

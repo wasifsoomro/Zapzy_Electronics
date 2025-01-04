@@ -25,7 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${poppins.className}`} >
         <Header />
-        {children}
+        <div className="overflow-x-hidden">
+          {children}
+        </div>
+        
         <Footer />
         </body>
     </html>
