@@ -33,7 +33,7 @@
       "rating": 5.0,
       "price": 120,
       "originalPrice": 150,
-      "category": "T-shirts",
+      "category": " ",
       "colors": ["black", "white"],
       "sizes": ["S", "M", "L"],
       "deliveryFee": 0,
@@ -83,7 +83,7 @@
     {
       "id": 7,
       "imageslist": ["/vertical-shirt.png", "/vertical-shirt.png", "/vertical-shirt.png"],
-      "name": "VERTICAL STRIPED SHIRT",
+      "name": " ",
       "image": "/vertical-shirt.png",
       "rating": 5.0,
       "price": 212,
@@ -109,7 +109,7 @@
     },
     {
       "id": 9,
-      "imageslist": ["/p-main.png", "/p-main.png", "/p-main.png"],
+      "imageslist": ["/p-1.png", "/p-2.png", "/p-3.png"],
       "name": "ONE LIFE GRAPHIC T-SHIRT",
       "image": "/p-main.png",
       "rating": 4.5,

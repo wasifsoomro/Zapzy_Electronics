@@ -2,15 +2,28 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import products from "../../../products.json";
+import { getProducts } from "../../../../sanity/lib/client";
 
 const OrderSummary: React.FC = () => {
   const [cart, setCart] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
     // Fetch cart data from localStorage
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCart(storedCart);
+
+    // Fetch all products from the database
+    const fetchProducts = async () => {
+      try {
+        const productData = await getProducts();
+        setProducts(productData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   if (cart.length === 0) {

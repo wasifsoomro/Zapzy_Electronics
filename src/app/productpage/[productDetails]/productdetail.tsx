@@ -1,30 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import products from "../../products.json";
 import { useParams } from "next/navigation";
-import Link from "next/link";
+import { getProducts } from "../../../sanity/lib/client";
+import { urlFor } from "../../../sanity/lib/image";
 
 const ProductDetail = () => {
-  const { productDetails } = useParams(); // Fetch the productDetails from the URL
-  const product = products.find((item) => item.id === Number(productDetails));
+  const { productDetails } = useParams();
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // State to track the selected color, size, and quantity
-  const [selectedColor, setSelectedColor] = useState(
-    product ? product.colors[0] : null
-  ); // Default to first color
-  const [selectedSize, setSelectedSize] = useState(
-    product ? product.sizes[0] : null
-  ); // Default to first size
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  const [notification, setNotification] = useState<string | null>(null);
 
-  const handleColorChange = (color: any) => setSelectedColor(color);
-  const handleSizeChange = (size: any) => setSelectedSize(size);
-  const handleQuantityChange = (operation: any) => {
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const products = await getProducts();
+        const foundProduct = products.find(
+          (item: any) => item.id === productDetails
+        );
+        setProduct(foundProduct);
+        if (foundProduct) {
+          setSelectedColor(foundProduct.colors[0]);
+          setSelectedSize(foundProduct.sizes[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [productDetails]);
+
+  const handleColorChange = (color: string) => setSelectedColor(color);
+  const handleSizeChange = (size: string) => setSelectedSize(size);
+  const handleQuantityChange = (operation: string) => {
     setQuantity((prevQuantity) => {
       if (operation === "increment" && quantity < 10) {
         return prevQuantity + 1;
@@ -47,41 +63,74 @@ const ProductDetail = () => {
       quantity,
     };
 
-    // Get the current cart from localStorage (if exists)
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    // Add the new product to the cart (or update quantity if product already exists)
     const updatedCart = [...existingCart, cartItem];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // Show notification
+    setNotification("Successfully added to cart");
+
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8 lg:px-12">
+    <div className="container mx-auto px-4 py-8 lg:px-12 relative">
+      {/* Notification */}
+      {notification && (
+        <div className="fixed top-5 right-5 bg-green-500 text-white px-6 py-4 rounded-md shadow-lg z-50 flex items-center gap-3 animate-fadeInOut">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+          <span className="text-sm font-semibold">{notification}</span>
+        </div>
+      )}
+
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center text-sm text-gray-500 mb-6">
         <a href="/" className="hover:text-gray-700">
           Home
         </a>
         <span className="mx-2">›</span>
-        <a href="/shop" className="hover:text-gray-700">
+        <a href="/productpage" className="hover:text-gray-700">
           Shop
         </a>
         <span className="mx-2">›</span>
         <span className="text-gray-800 font-medium">{product.name}</span>
       </nav>
 
-      {/* Product Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Sidebar Thumbnails */}
         <div className="hidden lg:flex flex-col gap-4 lg:col-span-2">
-          {product.imageslist.map((image, index) => (
+          {product.imageslist.map((image: string, index: number) => (
             <div
               key={index}
               className="border rounded-lg overflow-hidden cursor-pointer hover:shadow-md transition"
             >
               <Image
-                src={image}
-                alt={String(index)}
+                src={urlFor(image).url()}
+                alt={`Image ${index}`}
                 width={90}
                 height={90}
                 className="w-full h-[165px] object-cover"
@@ -94,7 +143,7 @@ const ProductDetail = () => {
         <div className="lg:col-span-5 flex justify-center items-center">
           <div className="border rounded-lg p-4 bg-gray-50 w-full max-w-md">
             <Image
-              src={product.image}
+              src={urlFor(product.image).url()}
               alt="Main Product Image"
               width={400}
               height={400}
@@ -112,51 +161,13 @@ const ProductDetail = () => {
           {/* Price Section */}
           <div className="flex items-center gap-4 mb-4">
             <span className="text-2xl font-bold">${product.price}</span>
-            {product.originalPrice && (
-              <span className="line-through text-gray-400">
-                ${product.originalPrice}
-              </span>
-            )}
-            {product.originalPrice && (
-              <span className="text-red-500 text-sm font-medium">
-                -{Math.round(
-                  ((product.originalPrice - product.price) /
-                    product.originalPrice) *
-                    100
-                )}
-                %
-              </span>
-            )}
           </div>
-
-          {/* Ratings */}
-          <div className="flex items-center mb-4">
-            <div className="text-yellow-400 flex gap-1">
-              {[...Array(Math.floor(product.rating))].map((_, i) => (
-                <span key={i}>★</span>
-              ))}
-              {product.rating % 1 !== 0 && <span>★</span>}
-              {[...Array(5 - Math.ceil(product.rating))].map((_, i) => (
-                <span key={i} className="text-gray-300">
-                  ★
-                </span>
-              ))}
-            </div>
-            <span className="text-gray-600 ml-2">{product.rating}/5</span>
-          </div>
-
-          {/* Product Description */}
-          <p className="text-gray-600 leading-relaxed mb-6">
-            Experience premium comfort and style with our {product.name}.
-            Crafted with high-quality materials, this t-shirt ensures both
-            durability and elegance for casual wear.
-          </p>
 
           {/* Color Options */}
           <div className="mb-6">
             <h3 className="font-medium mb-2">Select Colors</h3>
             <div className="flex gap-3">
-              {product.colors.map((color, index) => (
+              {product.colors.map((color: string, index: number) => (
                 <div
                   key={index}
                   className={`w-8 h-8 rounded-full cursor-pointer ring-2 ring-offset-2 ${
@@ -173,7 +184,7 @@ const ProductDetail = () => {
           <div className="mb-6">
             <h3 className="font-medium mb-2">Choose Size</h3>
             <div className="flex gap-3">
-              {product.sizes.map((size, index) => (
+              {product.sizes.map((size: string, index: number) => (
                 <button
                   key={index}
                   className={`border rounded-md px-4 py-2 text-sm ${
@@ -213,7 +224,7 @@ const ProductDetail = () => {
               onClick={handleAddToCart}
               className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition w-full sm:w-auto"
             >
-              <Link href={`/productpage/5/cart`}>Add to Cart</Link>
+              Add to Cart
             </button>
           </div>
         </div>

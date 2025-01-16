@@ -87,7 +87,7 @@ const Header = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link href="/" className="hover:text-gray-600">
+          <Link href="/productpage" className="hover:text-gray-600">
             Shop
           </Link>
           <Link href="#on-sale" className="hover:text-gray-600">
@@ -112,7 +112,7 @@ const Header = () => {
             <button className="absolute right-3 top-1/2 -translate-y-1/2">
               <svg
                 className="w-5 h-5 text-gray-500"
-                fill="none"
+                fill="none"   
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >

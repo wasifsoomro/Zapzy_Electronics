@@ -1,53 +1,73 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import products from "../../../products.json";
+import { getProducts } from "../../../../sanity/lib/client";
+import { urlFor } from "../../../../sanity/lib/image";
+
+// Define types for cart items and products
+interface CartItem {
+  id: number;
+  size: string;
+  color: string;
+  quantity: number;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
 
 const CartItem = () => {
   const { productDetails } = useParams(); // Fetch `productDetails` from the URL
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  // Fetch cart data from localStorage on component mount
   useEffect(() => {
+    // Fetch products data from the API
+    const fetchProducts = async () => {
+      const productsData = await getProducts();
+      setProducts(productsData);
+    };
+
+    fetchProducts();
+
+    // Fetch cart data from localStorage
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    console.log("Stored Cart from localStorage: ", storedCart); // Log cart data for debugging
     setCart(storedCart);
   }, []);
 
   const removeFromCart = (id: number) => {
-    // Remove product from cart based on its ID
-    const updatedCart = cart.filter((item: any) => item.id !== id);
-    // Update the state and localStorage
+    const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    console.log("Updated Cart: ", updatedCart); // Log updated cart for debugging
   };
 
   if (cart.length === 0) {
-    return <div>Your cart is empty!</div>;
+    return <div className="text-center text-lg font-semibold mt-8">Your cart is empty!</div>;
   }
 
   return (
-    <div>
-      {cart.map((cartItem: any) => {
-        // Find the product details from products.json for each item in the cart
+    <div className="max-w-4xl mx-auto px-4">
+      {cart.map((cartItem) => {
         const product = products.find((item) => item.id === cartItem.id);
 
         if (!product) {
-          return <div key={cartItem.id}>Product not found in products.json</div>;
+          return null
         }
-
         return (
           <div key={cartItem.id} className="flex items-center justify-between border-b py-4">
-            {/* Product Image */}
+            {/* Product Image and Details */}
             <div className="flex items-center gap-4">
               <img
-                src={product.image}
+                src={urlFor(product.image).url()}
                 alt={product.name}
                 className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-md"
               />
               <div>
-                <h2 className="text-md md:text-lg font-semibold leading-tight">{product.name}</h2>
+                <h2 className="text-md md:text-lg font-semibold">{product.name}</h2>
                 <p className="text-sm text-gray-500">
                   Size: <span className="text-black">{cartItem.size}</span>
                 </p>
@@ -61,7 +81,9 @@ const CartItem = () => {
             </div>
 
             {/* Price */}
-            <div className="text-md md:text-lg font-bold">${(product.price * cartItem.quantity).toFixed(2)}</div>
+            <div className="text-md md:text-lg font-bold">
+              ${(product.price * cartItem.quantity).toFixed(2)}
+            </div>
 
             {/* Remove Button */}
             <button

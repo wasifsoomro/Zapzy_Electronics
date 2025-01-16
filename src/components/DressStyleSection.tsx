@@ -26,35 +26,32 @@ const DressStyleSection = () => {
   ];
 
   return (
-    <section className="w-full px-4 sm:px-8 lg:px-20 xl:px-28 py-12 bg-[#F0F0F0] rounded-lg">
-      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 tracking-wide">
-        BROWSE BY DRESS STYLE
-      </h2>
+    <div className="flex items-center justify-center min-h-screen bg-white px-4 py-8">
+  <div className="bg-gray-100 p-8 rounded-3xl shadow-lg w-5/6 md:w-3/4 lg:w-5/6">
+    <h2 className="text-xl font-bold text-center mb-6">
+      BROWSE BY DRESS STYLE
+    </h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {styleCategories.map((category) => (
+       <Link href="/productpage" key={category.title}>
+        <div
+          className="relative bg-white rounded-lg overflow-hidden shadow-md h-44"
+        >
+          <img
+            src={category.image}
+            alt={category.title}
+            className="w-full h-full object-cover"
+          />
+          <span className="absolute top-2 left-2 text-black font-semibold bg-white/80 px-2 py-1 rounded">
+            {category.title}
+          </span>
+        </div>
+       </Link>
+      ))}
+    </div>
+  </div>
+</div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {styleCategories.map((category, index) => (
-          <Link
-            href={`/productpage/${category.title.toLowerCase()}`}
-            key={index}
-            className="relative overflow-hidden rounded-md bg-white shadow hover:shadow-lg transition-shadow"
-          >
-            <div className="relative h-56 sm:h-72 lg:h-80 xl:h-96">
-              <Image
-                src={category.image}
-                alt={category.alt}
-                width={700}
-                height={600}
-                className="object-cover w-full h-full"
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              />
-              <h3 className="absolute top-4 left-4 text-sm sm:text-lg font-semibold text-black bg-white bg-opacity-75 px-3 py-1 rounded">
-                {category.title}
-              </h3>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
   );
 };
 

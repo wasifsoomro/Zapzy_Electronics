@@ -1,16 +1,20 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoChevronRight } from "react-icons/go";
 import Link from "next/link";
-import products from "../products.json";
+import { getProducts } from "../../sanity/lib/client";
+import { urlFor } from '../../sanity/lib/image';
+
+
 
 const CategoryPage: React.FC = () => {
+  const [products, setProducts] = useState<any[]>([]);
   const [selectedColor, setSelectedColor] = useState<string>("green");
   const [selectedSize, setSelectedSize] = useState<string>("Large");
   const [sortBy, setSortBy] = useState<string>("Most Popular");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
   // States for price range
   const [priceRange, setPriceRange] = useState<[number, number]>([50, 200]);
@@ -34,6 +38,15 @@ const CategoryPage: React.FC = () => {
   ];
   const categories = ["T-shirts", "Shorts", "Shirts", "Hoodies", "Jeans"];
 
+  useEffect(() => {
+    async function fetchProducts() {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+      setFilteredProducts(fetchedProducts);
+    }
+    fetchProducts();
+  }, []);
+
   // Function to sort products based on the selected criteria
   const sortedProducts = () => {
     let sorted = [...filteredProducts];
@@ -50,7 +63,7 @@ const CategoryPage: React.FC = () => {
   // Function to filter products by category and price range
   const applyFilter = () => {
     const filtered = products.filter(
-      (product) =>
+      (product: any) =>
         (!selectedCategory || product.category === selectedCategory) &&
         product.price >= priceRange[0] &&
         product.price <= selectedPrice
@@ -193,10 +206,10 @@ const CategoryPage: React.FC = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
           {paginatedProducts().map((product) => (
-            <Link key={product.id} href={`/productpage/${product.id}`}>
-              <div className="border rounded-lg p-4 shadow hover:shadow-lg transition">
+            <Link key={product.id} href={`/productpage/${product?.id}`}>
+              <div className="border rounded-lg p-4 shadow hover:shadow-lg transition h-[480px]">
                 <Image
-                  src={product.image}
+                  src={urlFor(product.image).url()}
                   alt={product.name}
                   width={192}
                   height={192}
