@@ -27,3 +27,21 @@ export async function getProducts() {
   return products;
 }
 
+
+export async function getApiProducts() {
+  const query = ` *[_type=="products"]{
+  id,
+  name,
+  description,
+  price,
+  "image" : image.asset->url,
+  imageslist,
+  category,
+  discount,
+  "isNew": new,
+  colors,
+  sizes
+}`;
+  const products = await client.fetch(query);
+  return products;
+}

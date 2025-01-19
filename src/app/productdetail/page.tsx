@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { urlFor } from "../../../sanity/lib/image";
+import { urlFor } from "../../sanity/lib/image";
 const ProductDetail = () => {
   const { productDetails } = useParams();
   const [product, setProduct] = useState<any>(null);

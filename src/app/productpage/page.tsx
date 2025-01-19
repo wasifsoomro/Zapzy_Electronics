@@ -3,10 +3,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { GoChevronRight } from "react-icons/go";
 import Link from "next/link";
-import { getProducts } from "../../sanity/lib/client";
 import { urlFor } from '../../sanity/lib/image';
-
-
 
 const CategoryPage: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -40,12 +37,17 @@ const CategoryPage: React.FC = () => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-      setFilteredProducts(fetchedProducts);
+      const res = await fetch('/api/products'); // Make a request to your new API route
+      if (res.ok) {
+        const fetchedProducts = await res.json();
+        setProducts(fetchedProducts);
+        setFilteredProducts(fetchedProducts);
+      }
     }
     fetchProducts();
   }, []);
+
+  
 
   // Function to sort products based on the selected criteria
   const sortedProducts = () => {
@@ -88,6 +90,8 @@ const CategoryPage: React.FC = () => {
       setCurrentPage(page);
     }
   };
+
+  
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-4 lg:p-8">
@@ -202,6 +206,8 @@ const CategoryPage: React.FC = () => {
             </select>
           </div>
         </div>
+
+        
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">

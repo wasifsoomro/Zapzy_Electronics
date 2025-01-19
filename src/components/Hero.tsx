@@ -6,7 +6,7 @@ import Link from "next/link";
         {/* Hero Section */}
         <div className="relative w-full flex flex-col lg:flex-row items-center justify-between max-w-7xl px-6 mx-auto">
           {/* Left Content */}
-          <div className="lg:w-1/2 space-y-6 text-center lg:text-left">
+          <div className="lg:w-1/2 text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl sm:z-0  md:text-5xl lg:text-6xl font-extrabold uppercase leading-tight">
               Find Clothes That Matches Your Style
             </h1>
