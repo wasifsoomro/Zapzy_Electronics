@@ -36,11 +36,13 @@ export async function getApiProducts() {
   price,
   "image" : image.asset->url,
   imageslist,
-  category,
+  rating,
+  categories,
   discount,
   "isNew": new,
   colors,
-  sizes
+  sizes,
+  
 }`;
   const products = await client.fetch(query);
   return products;

@@ -58,17 +58,38 @@ const ProductDetail = () => {
       size: selectedSize,
       quantity,
     };
-
+  
+    // Retrieve existing cart items from localStorage
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const updatedCart = [...existingCart, cartItem];
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-
+  
+    // Check if the product is already in the cart
+    const existingProductIndex = existingCart.findIndex(
+      (item: any) =>
+        item.id === product.id &&
+        item.color === selectedColor &&
+        item.size === selectedSize
+    );
+  
+    if (existingProductIndex > -1) {
+      // Update the quantity if the product already exists
+      existingCart[existingProductIndex].quantity += quantity;
+    } else {
+      // Add the new product to the cart
+      existingCart.push(cartItem);
+    }
+  
+    // Save the updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+  
+    // Show notification
     setNotification("Successfully added to cart");
-
+  
     setTimeout(() => {
       setNotification(null);
     }, 3000);
   };
+  
+  
 
   if (loading) {
     return <div>Loading...</div>;

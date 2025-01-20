@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { GoChevronRight } from "react-icons/go";
 import Link from "next/link";
-import { urlFor } from '../../sanity/lib/image';
+import { urlFor } from "../../sanity/lib/image";
 
 const CategoryPage: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -21,7 +21,15 @@ const CategoryPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 12;
 
-  const colors = ["green", "yellow", "orange", "blue", "black", "pink", "white"];
+  const colors = [
+    "green",
+    "yellow",
+    "orange",
+    "blue",
+    "black",
+    "pink",
+    "white",
+  ];
   const sizes = [
     "XX-Small",
     "X-Small",
@@ -37,17 +45,16 @@ const CategoryPage: React.FC = () => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const res = await fetch('/api/products'); // Make a request to your new API route
+      const res = await fetch("/api/products");
       if (res.ok) {
         const fetchedProducts = await res.json();
+        console.log(fetchedProducts); // Check if ratings exist in the products data
         setProducts(fetchedProducts);
         setFilteredProducts(fetchedProducts);
       }
     }
     fetchProducts();
   }, []);
-
-  
 
   // Function to sort products based on the selected criteria
   const sortedProducts = () => {
@@ -90,8 +97,6 @@ const CategoryPage: React.FC = () => {
       setCurrentPage(page);
     }
   };
-
-  
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-4 lg:p-8">
@@ -194,7 +199,8 @@ const CategoryPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
           <h1 className="text-2xl font-bold mb-2 sm:mb-0">Casual</h1>
           <div className="text-sm text-gray-500">
-            Showing {paginatedProducts().length} of {filteredProducts.length} Products
+            Showing {paginatedProducts().length} of {filteredProducts.length}{" "}
+            Products
             <select
               className="ml-2 border border-gray-300 rounded px-2 py-1"
               onChange={(e) => setSortBy(e.target.value)}
@@ -206,8 +212,6 @@ const CategoryPage: React.FC = () => {
             </select>
           </div>
         </div>
-
-        
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
@@ -224,15 +228,24 @@ const CategoryPage: React.FC = () => {
                 <h2 className="mt-4 text-lg font-semibold">{product.name}</h2>
                 <div className="flex items-center mt-2">
                   <span className="text-yellow-500">
-                    {"★".repeat(Math.floor(product.rating))}
-                    {"☆".repeat(5 - Math.floor(product.rating))}
+                    {"★".repeat(
+                      Math.min(5, Math.max(0, Math.floor(product.rating)))
+                    )}
+                    {"☆".repeat(
+                      5 - Math.min(5, Math.max(0, Math.floor(product.rating)))
+                    )}
                   </span>
-                  <span className="ml-2 text-sm text-gray-500">{product.rating}/5</span>
+                  <span className="ml-2 text-sm text-gray-500">
+                    {product.rating ? product.rating : "No rating"}
+                  </span>
                 </div>
+
                 <div className="mt-4">
                   <span className="text-lg font-bold">${product.price}</span>
                   {product.originalPrice && (
-                    <span className="ml-2 text-sm line-through text-gray-500">${product.originalPrice}</span>
+                    <span className="ml-2 text-sm line-through text-gray-500">
+                      ${product.originalPrice}
+                    </span>
                   )}
                 </div>
               </div>
@@ -253,7 +266,9 @@ const CategoryPage: React.FC = () => {
             <button
               key={index}
               className={`px-3 py-1 border rounded ${
-                currentPage === index + 1 ? "bg-black text-white" : "bg-gray-100"
+                currentPage === index + 1
+                  ? "bg-black text-white"
+                  : "bg-gray-100"
               }`}
               onClick={() => handlePageChange(index + 1)}
             >

@@ -6,6 +6,12 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'id',
+      type: 'string', // You can use 'number' or other types if required
+      title: 'ID',
+      description: 'Unique identifier for this document',
+    },
+    {
       name: 'name',
       title: 'Name',
       type: 'string',
@@ -35,6 +41,19 @@ export default {
       type: 'image',
       validation: (Rule: ValidationRule) =>
         Rule.required().error('An image is required for the product.'),
+    },
+    {
+      name: 'imageslist',
+      type: 'array',
+      title: 'Images List',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true, // Enables cropping
+          },
+        },
+      ],
     },
     {
       name: 'category',
@@ -87,11 +106,18 @@ export default {
           .error('At least one size must be specified for the product.'),
     },
     {
-        name: 'isNew',
-        title: 'Is New',
-        type: 'boolean',
-        validation: (Rule: ValidationRule) =>
-          Rule.required().error('Please specify whether the product is new.'),
-      },
+      name: 'isNew',
+      title: 'Is New',
+      type: 'boolean',
+      validation: (Rule: ValidationRule) =>
+        Rule.required().error('Please specify whether the product is new.'),
+    },
+    {
+      name: 'rating',
+      title: 'Rating',
+      type: 'number',
+      validation: (Rule: ValidationRule) =>
+        Rule.required().min(1).max(5).error('Rating must be between 1 and 5.'),
+    },
   ],
 };
