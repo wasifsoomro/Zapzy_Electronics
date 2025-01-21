@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const Checkout: React.FC = () => {
@@ -83,9 +84,11 @@ const Checkout: React.FC = () => {
             {cart.map((item) => (
               <div key={item.id} className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  <img
+                  <Image
                     src={item.image || "/placeholder.jpg"}
                     alt={item.name}
+                    width={48}
+                    height={48}
                     className="w-12 h-12 object-cover rounded-md"
                   />
                   <span>{item.name} (x{item.quantity})</span>

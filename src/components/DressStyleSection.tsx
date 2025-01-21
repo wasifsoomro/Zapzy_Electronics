@@ -37,10 +37,12 @@ const DressStyleSection = () => {
         <div
           className="relative bg-white rounded-lg overflow-hidden shadow-md h-44"
         >
-          <img
+          <Image
             src={category.image}
             alt={category.title}
             className="w-full h-full object-cover"
+            width={300}
+            height={300}
           />
           <span className="absolute top-2 left-2 text-black font-semibold bg-white/80 px-2 py-1 rounded">
             {category.title}
