@@ -1,16 +1,10 @@
 import { Rule as ValidationRule } from '@sanity/types';
 
-export default {
+const productSchema = {
   name: 'products',
   title: 'Products',
   type: 'document',
   fields: [
-    {
-      name: 'id',
-      type: 'string', // You can use 'number' or other types if required
-      title: 'ID',
-      description: 'Unique identifier for this document',
-    },
     {
       name: 'name',
       title: 'Name',
@@ -61,11 +55,11 @@ export default {
       type: 'string',
       options: {
         list: [
-          { title: 'T-Shirt', value: 'tshirt' },
-          { title: 'Short', value: 'short' },
-          { title: 'Jeans', value: 'jeans' },
-          { title: 'Hoodie', value: 'hoodie' },
-          { title: 'Shirt', value: 'shirt' },
+          { title: 'T-Shirts', value: 'T-Shirts' },
+          { title: 'Shorts', value: 'Shorts' },
+          { title: 'Jeans', value: 'Jeans' },
+          { title: 'Hoodies', value: 'Hoodies' },
+          { title: 'Shirts', value: 'Shirts' },
         ],
       },
       validation: (Rule: ValidationRule) =>
@@ -80,7 +74,7 @@ export default {
     },
     {
       name: 'new',
-      title: '  New',
+      title: 'New',
       type: 'boolean',
       validation: (Rule: ValidationRule) =>
         Rule.required().error('Please specify whether the product is new.'),
@@ -112,12 +106,7 @@ export default {
       validation: (Rule: ValidationRule) =>
         Rule.required().error('Please specify whether the product is new.'),
     },
-    {
-      name: 'rating',
-      title: 'Rating',
-      type: 'number',
-      validation: (Rule: ValidationRule) =>
-        Rule.required().min(1).max(5).error('Rating must be between 1 and 5.'),
-    },
   ],
 };
+
+export default productSchema;

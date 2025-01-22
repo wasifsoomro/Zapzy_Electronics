@@ -1,5 +1,5 @@
 "use client";
-import { getProducts } from "../../../sanity/lib/client";
+import { getApiProducts } from "../../../sanity/lib/client";
 import { urlFor } from "../../../sanity/lib/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ export const OtherProducts = () => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const fetchedProducts = await getProducts();
+      const fetchedProducts = await getApiProducts();
 
       // Shuffle the products array randomly
       const shuffledProducts = fetchedProducts.sort(() => Math.random() - 0.5);

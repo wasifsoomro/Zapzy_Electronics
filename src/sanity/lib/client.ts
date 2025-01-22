@@ -9,41 +9,27 @@ export const client = createClient({
   useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
 })
 
-export async function getProducts() {
-  const query = `*[_type == "product"] {
-    id,
-    name,
-    image,
-    imageslist,
-    rating,
-    price,
-    category,
-    colors,
-    sizes,
-    deliveryFee,
-    discount
-  }`;
-  const products = await client.fetch(query);
-  return products;
-}
-
 
 export async function getApiProducts() {
-  const query = ` *[_type=="products"]{
-  id,
-  name,
-  description,
-  price,
-  "image" : image.asset->url,
-  imageslist,
-  rating,
-  categories,
-  discount,
-  "isNew": new,
-  colors,
-  sizes,
-  
-}`;
-  const products = await client.fetch(query);
-  return products;
+  try{
+    const query = ` *[_type=="products"]{
+      id,
+      name,
+      description,
+      price,
+      "image" : image.asset->url,
+      imageslist,
+      rating,
+      categories,
+      discount,
+      "isNew": new,
+      colors,
+      sizes,
+      
+    }`;
+    return await client.fetch(query);
+  }catch(error){
+    console.log("Error Fetching products:" , error)
+    throw error
+  }
 }

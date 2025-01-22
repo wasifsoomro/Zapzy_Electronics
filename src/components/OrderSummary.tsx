@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getProducts } from "../sanity/lib/client";
+import { getApiProducts} from "../sanity/lib/client";
 
 const OrderSummary: React.FC = () => {
   const [cart, setCart] = useState<any[]>([]);
@@ -13,7 +13,7 @@ const OrderSummary: React.FC = () => {
 
     const fetchProducts = async () => {
       try {
-        const productData = await getProducts();
+        const productData = await getApiProducts();
         setProducts(productData);
       } catch (error) {
         console.error("Error fetching products:", error);
