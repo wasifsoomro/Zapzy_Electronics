@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Product type for TypeScript
 interface Product {
@@ -11,7 +11,7 @@ interface Product {
 
 const Header = () => {
   const [isPromoOpen, setIsPromoOpen] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Controls hamburger menu
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(""); // Search query
@@ -19,7 +19,7 @@ const Header = () => {
 
   const user = {
     username: "JohnDoe",
-    balance: 120.50,
+    balance: 120.5,
     orders: 5,
   };
 
@@ -72,7 +72,7 @@ const Header = () => {
 
       {/* Main Navigation */}
       <nav className="flex items-center justify-between px-4 py-4 border-b relative md:gap-2 lg:gap-4">
-        {/* Hamburger Menu Button on Left */}
+        {/* Hamburger Menu Button */}
         <div className="flex items-center">
           <button
             className="md:hidden block focus:outline-none"
@@ -107,6 +107,50 @@ const Header = () => {
             SHOP.CO
           </Link>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-white shadow-lg z-20 md:hidden">
+            <ul className="flex flex-col">
+              <li>
+                <Link
+                  href="/productpage"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)} // Close menu after navigation
+                >
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#on-sale"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)} // Close menu after navigation
+                >
+                  On Sale
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#new-arrivals"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)} // Close menu after navigation
+                >
+                  New Arrivals
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#brands"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={() => setIsMenuOpen(false)} // Close menu after navigation
+                >
+                  Brands
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
@@ -160,7 +204,7 @@ const Header = () => {
                 <li key={product.id} className="px-4 py-2 hover:bg-gray-200">
                   <Link
                     href={`/productpage/${product.id}`}
-                    onClick={handleProductClick} // Hide search results on product click
+                    onClick={handleProductClick}
                   >
                     {product.name} - {product.category}
                   </Link>

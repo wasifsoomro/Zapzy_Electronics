@@ -1,0 +1,7 @@
+TestCase ID,Description ,Steps,Expected Result,Actual Result,Remarks,Status
+TC001,Check build time error ,"Run a command ""npm run build""",Succesfully Build,Succesfully Build,Passed ,No Issue Found
+TC002,Create a repository and push a code ,Open my github account and create a repositiry and run a require commands,Succesfully code pushed to my repository,Succesfully code pushed to my repository,Passed ,No Issue Found
+TC003,Hosting Platform Setup,Login to my vercel Account and linked it to my github account,Successfully linked and show my all github repositories,Successfully linked and show my all github repositories,Passed ,No Issue Found
+TC004,Deploy a project on vercel,Select my repository and set a project name then click on deploy,Succesfully Deployed,Deployement Failed,Failed,Build Logs issues
+TC005,Try to identify the errors ,Read errors and try to get solution,Find a Solution succesfully,Find a Solution succesfully,Passed ,Wait for Apply
+TC006,Redeploy a project on vercel,Redeploy with envionment variables,Succesfully Deployed,Succesfully Deployed,Passed ,No Issue Found

@@ -1,0 +1,9 @@
+TestCase ID,Description ,Steps,Expected Result,Actual Result,Remarks,Status
+TC001,Check Products Displayed or not,Click on every link to check ,Display Products Succesfully,Display Products Succesfully,Passed,No Issue Found
+TC002,Check Search Functionality,Click on search and filter functionality to validate,Searching functionality works as expected ,Searching functionality works successfully ,Passed,No Issue Found
+TC003,Check Filter Functionlity,Go to filter section check filter functionality,Filter Functionality Works Successfully,Have some issue in certain conditons,,Some issues
+TC004,Check Dynamic Routing in pages,Click on products page then click on specific product to dynamic route on product detail page and show a same product details in which I click ,Successfully Dynamic Route,Successfully Dynamic Route,Passed,No issue Found
+TC005,Check Cart Functionality,Click on products to see product details then click on add to cart button product succesfully added in cart page then go to cart page and remove a cart products from cart page,Successfully Added and Removed product in cart,Successfully Added and Removed product in cart,Passed,No Issue Found
+TC006,FallBack Ui Alternative Content for display,"When data is not fetched it shows error ""product not found""",Show alternative text,Shows alternative text,Passed,No Issue Found
+TC007,Identify Performance and speed issues,Open a dev tool select lighthouse ,under 1.5 seconds, under 1 second,Passed,No Issue Found
+TC008,Test on different mobiles,Share link and open,Works Smoothly,Works Smoothly,Passed,No Issue Found
