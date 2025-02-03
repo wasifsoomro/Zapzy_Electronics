@@ -13,7 +13,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
         URL = 'http://localhost:3000'
     }
     else {
-        URL = 'https://stripe-payment-one-nu.vercel.app';
+        URL = 'https://zapzy-electronics.vercel.app';
     }
 
     const stripe = useStripe()

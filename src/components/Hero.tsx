@@ -30,7 +30,7 @@ import Link from "next/link";
               className="w-full max-w-sm md:max-w-md lg:max-w-full object-cover"
             />
             {/* Decorative Stars */}
-            <div className=""><Image src="/vector.png" alt="vector" height={30} width={200} className="h-21 w-80 p-3 -mx-16 my-12"  /></div>
+            <div className=""><Image src="/vector.png" alt="vector" height={30} width={200} className="h-21 w-72 p-3 -mx-16 my-12"  /></div>
             <div className="absolute left-3 bottom-52"><Image src="/vector2.png" alt="vector" height={30} width={200} className='w-14 h-14 object-cover' /></div>
           </div>
         </div>
