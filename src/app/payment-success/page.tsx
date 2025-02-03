@@ -37,7 +37,7 @@ const PaymentSuccess = ({ searchParams }: IParams) => {
       <h1 className="text-4xl font-extrabold text-center mb-8 text-gray-800">
         Thank You for Your Purchase, {customerName}!
       </h1>
-
+    <h1 className='text-5xl text-center p-11'>Under Working</h1>
       <p className="text-lg text-center mb-4 text-gray-600">
         Your payment of <span className="font-bold text-blue-500">${amount}</span> has been successfully processed.
       </p>
