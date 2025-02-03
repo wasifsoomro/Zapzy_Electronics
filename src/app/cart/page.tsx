@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const CartPage = () => {
+
+const Page = () => {
   const [cart, setCart] = useState<any[]>([]);
 
   useEffect(() => {
@@ -133,19 +134,6 @@ const CartPage = () => {
                 <span>${grandTotal.toFixed(2)}</span>
               </div>
 
-              {/* Promo Code */}
-              <div className="flex items-center mt-6">
-                <input
-                  type="text"
-                  placeholder="Promo code"
-                  className="w-full border border-gray-300 rounded-l-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
-                  aria-label="Enter promo code"
-                />
-                <button className="bg-black text-white px-4 py-2 rounded-r-md text-sm hover:bg-blue-600 transition-colors">
-                  Apply
-                </button>
-              </div>
-
               {/* Checkout Button */}
               <Link href={`/checkout`}>
                 <button className="w-full bg-black text-white mt-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-colors">
@@ -160,4 +148,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default Page;

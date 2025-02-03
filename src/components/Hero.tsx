@@ -25,15 +25,16 @@ import Link from "next/link";
             <Image
               src="/heroimage.png"
               alt="Models"
-              width={700}
+              width={500}
               height={600}
               className="w-full max-w-sm md:max-w-md lg:max-w-full object-cover"
             />
             {/* Decorative Stars */}
-            <div className="absolute top-6 left-6 w-6 h-6 bg-black rounded-full hidden lg:block"></div>
-            <div className="absolute bottom-6 right-6 w-6 h-6 bg-black rounded-full hidden lg:block"></div>
+            <div className=""><Image src="/vector.png" alt="vector" height={30} width={200} className="h-21 w-80 p-3 -mx-16 my-12"  /></div>
+            <div className="absolute left-3 bottom-52"><Image src="/vector2.png" alt="vector" height={30} width={200} className='w-14 h-14 object-cover' /></div>
           </div>
         </div>
+        
   
         {/* Brand Logos */}
         <div id="brands" className="bg-black w-full mt-2">

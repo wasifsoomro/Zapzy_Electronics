@@ -1,4 +1,5 @@
 "use client";
+import { UserButton, useUser, SignInButton, SignedIn, SignedOut} from "@clerk/nextjs";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,27 +13,24 @@ interface Product {
 const Header = () => {
   const [isPromoOpen, setIsPromoOpen] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Controls hamburger menu
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(""); // Search query
   const [searchResults, setSearchResults] = useState<Product[]>([]); // Search results
 
-  const user = {
-    username: "JohnDoe",
-    balance: 120.5,
-    orders: 5,
-  };
+  const { user, isSignedIn } = useUser(); // Clerk hook for user data; // Clerk hook to sign out
 
   const handleProfileClick = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    // Sign out with Clerk
     setIsProfileMenuOpen(false);
   };
 
-  const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const query = event.target.value;
     setSearchQuery(query);
 
@@ -233,6 +231,7 @@ const Header = () => {
           </Link>
 
           {/* Profile Icon */}
+          {/* Profile Icon */}
           <div className="relative">
             <button onClick={handleProfileClick} className="w-6 h-6">
               <svg
@@ -253,42 +252,34 @@ const Header = () => {
             {/* Profile Dropdown Menu */}
             {isProfileMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded-lg z-30">
-                {!isLoggedIn ? (
+                {!isSignedIn ? (
                   <>
                     <Link
-                      href="/login"
+                      href="/sign-in"
                       className="block px-4 py-2 hover:bg-gray-200"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      Login
-                    </Link>
-                    <Link
-                      href="/signup"
-                      className="block px-4 py-2 hover:bg-gray-200"
-                    >
-                      Sign Up
+                      <SignedOut>
+              <SignInButton />
+            </SignedOut>
                     </Link>
                   </>
                 ) : (
                   <>
-                    <div className="px-4 py-2">Welcome, {user.username}</div>
-                    <Link
-                      href="/balance"
-                      className="block px-4 py-2 hover:bg-gray-200"
-                    >
-                      Balance: ${user.balance.toFixed(2)}
-                    </Link>
+                    <div className="px-4 py-2">Welcome, {user.firstName}</div>
                     <Link
                       href="/orders"
                       className="block px-4 py-2 hover:bg-gray-200"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      Orders: {user.orders}
+                      Orders
                     </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-200 text-red-500"
-                    >
-                      Logout
-                    </button>
+                    {/* Use UserButton for logout */}
+                    <div className="block w-full px-4 py-2 hover:bg-gray-200 text-red-500">
+                      <SignedIn>
+                      <UserButton />
+                      </SignedIn>
+                    </div>
                   </>
                 )}
               </div>

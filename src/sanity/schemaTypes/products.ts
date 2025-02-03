@@ -1,6 +1,6 @@
 import { Rule as ValidationRule } from '@sanity/types';
 
-const productSchema = {
+const apiproducts = {
   name: 'products',
   title: 'Products',
   type: 'document',
@@ -109,4 +109,4 @@ const productSchema = {
   ],
 };
 
-export default productSchema;
+export default apiproducts;
